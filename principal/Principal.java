@@ -30,9 +30,13 @@ public class Principal {
                     indice++;
                     break;
                 case 2:
-                    for (int i = 0; i < nomesDosNinjas.length; i++) {
-                        if (nomesDosNinjas[i] != null) {
-                            System.out.printf("%d - %s\n", (i+1), nomesDosNinjas[i]);
+                    if (indice == 0) {
+                        System.out.println("Não há ninjas cadastrados.");
+                    } else {
+                        for (int i = 0; i < nomesDosNinjas.length; i++) {
+                            if (nomesDosNinjas[i] != null) {
+                                System.out.printf("%d - %s\n", (i+1), nomesDosNinjas[i]);
+                            }
                         }
                     }
                     break;
