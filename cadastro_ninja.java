@@ -1,78 +1,114 @@
+// NOTA: caso `scanner.nextInt` receba um valor
+// diferente de um inteiro, o mesmo causará
+// um ERRO FATAL, assim finalizando o programa.
+
 import java.util.Scanner;
 
 public class cadastro_ninja {
-    public static void main(String[] args) {
-        String[] nomesDosNinjas = new String[99];
-        int[] indicesDosNinjas = new int[99];
-        int indice = 0;
-        int totalNinjasCadastrados = 0;
+	public static void main(String[] args) {
 
-        Scanner entrada = new Scanner(System.in);
-        int escolha;
-        do {
-            System.out.println("----------|CADASTRO DE NINJA|----------");
-            System.out.println("1 - Cadastrar Ninja.");
-            System.out.println("2 - Listar Ninjas.");
-            System.out.println("3 - Deletar Ninja.");
-            System.out.println("4 - Sair.");
-            System.out.println("---------------------------------------");
-            System.out.print("Digite a sua opção desejada: ");
-            escolha = entrada.nextInt();
-            entrada.nextLine();
+		String[] lista_de_ninjas = new String[99];
+		Scanner entrada = new Scanner(System.in);
 
-            switch (escolha) {
-                case 1:
-                    do {
-                        System.out.print("\nDigite o nome do ninja: ");
-                        nomesDosNinjas[indice] = entrada.nextLine();
-                    } while (nomesDosNinjas[indice].isEmpty());
+		int total_de_ninjas = 0;
+		int escolha = 0;
 
-                    System.out.printf("\nO Ninja %s foi cadastrado com sucesso.\n\n", nomesDosNinjas[indice]);
 
-                    indicesDosNinjas[indice] = indice;
-                    indice++;
-                    totalNinjasCadastrados++;
+		do {
+			System.out.println("----------|CADASTRO DE NINJA|----------");
+			System.out.println("| 1 - Cadastrar Ninja                 |");
+			System.out.println("| 2 - Listar Ninjas                   |");
+			System.out.println("| 3 - Deletar Ninja                   |");
+			System.out.println("| 4 - Sair.                           |");
+			System.out.println("---------------------------------------");
 
-                    break;
-                case 2:
-                    if (totalNinjasCadastrados == 0) {
-                        System.out.println("Não há ninjas cadastrados.");
-                    } else {
-                        for (int i = 0; i < nomesDosNinjas.length; i++) {
-                            if (nomesDosNinjas[i] != null && indicesDosNinjas[i] != -1) {
-                                System.out.printf("%d - %s\n", indicesDosNinjas[i]+1, nomesDosNinjas[i]);
-                            }
-                        }
-                    }
-                    break;
-                case 3:
-                    if (totalNinjasCadastrados > 0) {
-                        System.out.print("Digite o índice do ninja que deseja deletar: ");
-                        int indiceDesejadoParaDeleter = entrada.nextInt();
-                        indiceDesejadoParaDeleter--;
-                        String ninjaExcluido = "";
-                        for (int i = 0; i < nomesDosNinjas.length; i++) {
-                            if (indiceDesejadoParaDeleter == indicesDosNinjas[i]) {
-                                ninjaExcluido = nomesDosNinjas[indiceDesejadoParaDeleter];
-                                nomesDosNinjas[indiceDesejadoParaDeleter] = "";
-                                indicesDosNinjas[indiceDesejadoParaDeleter] = -1;
-                                totalNinjasCadastrados--;
-                                break;
-                            }
-                        }
-                        System.out.printf("\nO ninja %s foi deletado com sucesso.\n", ninjaExcluido);
-                    } else {
-                        System.out.println("Não há nenhum ninja cadastrado.");
-                    }
-                    break;
+			System.out.print("Digite a sua opção desejada: ");
+			escolha = entrada.nextInt();
+			entrada.nextLine(); // limpa a quebra de linha no "buffer"
 
-                case 4:
-                    System.out.println("Programa finalizado.");
-                    break;
 
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } while (escolha != 4);
-    }
+			switch(escolha){
+				// cadastrar
+				case 1:
+					System.out.print("Digite o nome do ninja: ");
+					while(true){
+						lista_de_ninjas[ total_de_ninjas ] = entrada.nextLine();
+
+						if(!lista_de_ninjas[ total_de_ninjas ].isEmpty()){
+							break;
+						}else{
+							System.out.print("Nome inválido! Tente novamente: ");
+						}
+					}
+
+					// `total_de_ninjas` é atualizado a frente ->
+					System.out.printf("O ninja '%s' foi cadastrado com sucesso (%d/99).\n", lista_de_ninjas[ total_de_ninjas ], ++total_de_ninjas);
+					break;
+
+				// listar
+				case 2:
+					if(total_de_ninjas == 0){
+						System.out.println("Não há ninjas cadastrados.");
+
+					}else{
+						System.out.println("Ninjas cadastrados:");
+
+						// imprime apenas os itens diferentes de `null`
+						for(byte i = 0; i < total_de_ninjas; i++){
+							System.out.printf("%d - %s\n", i + 1, lista_de_ninjas[i]);
+						}
+					}
+					break;
+
+				// deletar
+				case 3:
+					if(total_de_ninjas == 0){
+						System.out.println("Não há nenhum ninja cadastrado.");
+					}else{
+
+						System.out.printf("Digite o índice do ninja que deseja deletar (entre 1-%d): ", total_de_ninjas);
+						int para_deletar = entrada.nextInt() - 1;
+						entrada.nextLine(); // limpa a quebra de linha no "buffer"
+
+						if(para_deletar >= total_de_ninjas){
+							System.out.println("O valor especificado é inválido!");
+
+						}else{
+							Boolean foi_deletado = false;
+							String ninja_deletado = lista_de_ninjas[ para_deletar ];
+
+							for(byte i = 0; i < total_de_ninjas; i++){
+								if(!foi_deletado){
+									if(lista_de_ninjas[i] == lista_de_ninjas[ para_deletar ]){
+										foi_deletado = true;
+										lista_de_ninjas[i] = null;
+									}
+									continue;
+								}
+
+								// move as Strings a frente para trás, assim
+								// preenchendo o novo espaço vazio
+								lista_de_ninjas[i - 1] = lista_de_ninjas[i];
+								lista_de_ninjas[i] = null;
+							}
+
+							total_de_ninjas--;
+							System.out.printf("O ninja '%s' foi deletado com sucesso (%d/99).\n", ninja_deletado, total_de_ninjas);
+						}
+					}
+					break;
+
+				// sair
+				case 4:
+					System.out.println("Programa finalizado com sucesso.\n");
+					break;
+
+				// esolha inválida
+				default:
+					System.out.println("Opção inválida!");
+			}
+		}while(escolha != 4);
+
+		entrada.close();
+	}
 }
