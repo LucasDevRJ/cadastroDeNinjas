@@ -6,8 +6,7 @@ Uma aplicação que é executada via terminal, onde o usuário pode cadastrar v�
 
 ## Como acessar o projeto?
 
-Para acessar o projeto e executa-lo na sua máquina, basta clicar <a href="https://github.com/LucasDevRJ/cadastroDeNinjas/archive/refs/heads/main.zip">aqui</a> para baixar o projeto e colocar o projeto em sua IDE ou editor de texto.
-
+Para acessar o projeto e executa-lo na sua máquina, basta clicar <a href="https://github.com/LucasDevRJ/cadastroDeNinjas/archive/refs/heads/main.zip">aqui</a> para baixar o projeto e colocar o projeto em sua IDE que funcione Java.
 ## Conteúdo
 
 * Entrada/saída de dados
