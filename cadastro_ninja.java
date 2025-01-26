@@ -1,8 +1,6 @@
-package principal;
-
 import java.util.Scanner;
 
-public class Principal {
+public class cadastro_ninja {
     public static void main(String[] args) {
         String[] nomesDosNinjas = new String[99];
         int[] indicesDosNinjas = new int[99];
