@@ -1,7 +1,3 @@
-// NOTA: caso `scanner.nextInt` receba um valor
-// diferente de um inteiro, o mesmo causará
-// um ERRO FATAL, assim finalizando o programa.
-
 import java.util.Scanner;
 
 public class cadastro_ninja {
@@ -23,8 +19,17 @@ public class cadastro_ninja {
 			System.out.println("+-------------------------------------+");
 
 			System.out.print("Digite um dos índices: ");
-			escolha = entrada.nextInt();
-			entrada.nextLine(); // limpa a quebra de linha no "buffer"
+
+			while(true){
+				if(entrada.hasNextInt()){
+					escolha = entrada.nextInt();
+					entrada.nextLine(); // limpa a quebra de linha no "buffer"
+					break;
+				}
+
+				System.out.print("Apenas números são permitidos!\nTente novamente: ");
+				entrada.nextLine(); // descarta o valor inválido
+			}
 
 
 			switch(escolha){
@@ -72,8 +77,18 @@ public class cadastro_ninja {
 					}
 
 					System.out.printf("Digite o índice do ninja que deseja deletar (entre 1-%d): ", total_de_ninjas);
-					int para_deletar = entrada.nextInt() - 1;
-					entrada.nextLine(); // limpa a quebra de linha no "buffer"
+					int para_deletar;
+
+					while(true){
+						if(entrada.hasNextInt()){
+							para_deletar = entrada.nextInt() - 1;
+							entrada.nextLine(); // limpa a quebra de linha no "buffer"
+							break;
+						}
+
+						System.out.print("Apenas números são permitidos!\nTente novamente: ");
+						entrada.nextLine(); // descarta o valor inválido
+					}
 
 					if(para_deletar >= total_de_ninjas){
 						System.out.println("O valor especificado é inválido!");
